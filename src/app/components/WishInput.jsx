@@ -1,3 +1,4 @@
+'use client'
 //wish input asks the user for their 'wish' or goal, retrieves it and submits to the api for AI to respond.
 import { useState } from "react";
 
