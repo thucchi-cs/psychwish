@@ -1,6 +1,5 @@
 'use client';
 import { useState } from "react";
-import WishInput from "./components/WishInput";
 
 let loaded = false;
 
@@ -70,46 +69,13 @@ export default function Home() {
     <main className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="mx-auto max-w-3xl bg-white rounded-xl shadow-lg p-6 space-y-6 border border-gray-200">
 
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-4">📦 Inventory Manager</h1>
-
-        {/* List of items */}
-        <ul className="space-y-2">
-          {items.map(i => (
-            <li
-              key={i.thing}
-              data-key={i.thing}
-              className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-lg border"
-            >
-              <span className="text-gray-700">{i.thing} - {i.qty}</span>
-              <Btn onClick={deleteItem} text="✕" className="bg-red-500 hover:bg-red-600 px-2 py-1 text-xs" />
-            </li>
-          ))}
-        </ul>
-
-        <hr className="border-t" />
-
-        {/* Add new item */}
-        <div className="flex flex-col sm:flex-row gap-3 items-center">
-          <input
-            placeholder="New item"
-            value={newItem}
-            onChange={changeNewItem}
-            className="w-full sm:w-1/2 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            placeholder="Quantity"
-            type="number"
-            value={newQty}
-            onChange={changeNewQty}
-            className="w-full sm:w-1/3 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <Btn text="Add" onClick={addItem} />
-        </div>
-      </div>
-
+      <h1>Hello</h1>
+      <a href="/quiz">quiz</a>
+      
       {/* Wish input form below */}
       <div className="mt-10">
         <WishInput />
+      </div>
       </div>
     </main>
   );
