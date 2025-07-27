@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import WishInput from "./components/WishInput";
 
 let loaded = false;
 
@@ -70,6 +71,7 @@ export default function Home() {
   )
 
   return (
+    <>
     <div>
 
       <h1>Hello</h1>
@@ -89,5 +91,7 @@ export default function Home() {
       </div>
 
     </div>
+    <WishInput/>
+    </>
   );
 }
