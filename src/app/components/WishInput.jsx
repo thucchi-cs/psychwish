@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const [userInput, setUserInput] = useState("");
-const [error, setError] = useState("");
+const [error, setError] =  useState<string | null>(null);
 const [isSubmitting, setIsSubmitting] = useState(false);
 
 const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ const handleSubmit = async (e) => {
 
       const newWish = await response.json();
       console.log(newWish);
-      
+
       // Reset the form
       setUserInput('');
     }
