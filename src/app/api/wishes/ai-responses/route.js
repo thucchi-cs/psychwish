@@ -14,7 +14,7 @@ export async function POST(req) {
       model: "gpt-4o-mini",
       messages: [
         { role: 'system', content: 'You are a thoughtful and supportive AI that gives encouragement and insights on wishes. Provide a poetic or artistic reflection, a realistic action plan, a humorous twist, a generated visualization, and a collaborative follow-up.' },
-        { role: 'user', content: prompt },
+        { role: 'user', content: prompt }, 
       ],
     });
 

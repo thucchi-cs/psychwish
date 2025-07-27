@@ -84,21 +84,22 @@ export default function WishInput() {
         </form>
       </div>
 
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-6 text-center space-y-4">
-            <h3 className="text-xl font-semibold text-gray-800">🌠 Reflection</h3>
-            <p className="text-gray-700">{aiResponse}</p>
-            <button
-              onClick={() => setShowModal(false)}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              Close
-            </button>
+     {/* Bottom Response Drawer */}
+        {showModal && (
+          <div className="fixed bottom-0 left-0 w-full z-50 bg-white shadow-inner border-t border-gray-300 max-h-[50vh] overflow-y-auto p-4">
+            <div className="flex justify-between items-start">
+              <h3 className="text-lg font-semibold text-gray-800">🌠 Reflection</h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="ml-4 px-4 py-2 bg-red-600 text-white text-sm font-semibold rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+              >
+                Close
+              </button>
+            </div>
+            <p className="mt-2 text-gray-700 whitespace-pre-line">{aiResponse}</p>
           </div>
-        </div>
-      )}
+        )}
+
     </>
   );
 }
