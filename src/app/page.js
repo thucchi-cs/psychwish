@@ -1,6 +1,5 @@
 'use client';
 import { useState } from "react";
-import WishInput from "./components/WishInput";
 
 let loaded = false;
 
@@ -75,6 +74,7 @@ export default function Home() {
     <div>
 
       <h1>Hello</h1>
+      <a href="/quiz">quiz</a>
 
       {items.map(i => (
         <div key={i.thing}>
@@ -91,7 +91,6 @@ export default function Home() {
       </div>
 
     </div>
-    <WishInput/>
     </>
   );
 }
