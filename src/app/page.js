@@ -28,7 +28,21 @@ export default function Home() {
   const changeNewItem = (e) => setNewItem(e.target.value);
   const changeNewQty = (e) => setNewQty(e.target.value);
   
-  const what = () => console.log("WHAHFASSDGJ")
+  const addItem = async() => {
+    const thing = newItem;
+    const qty = newQty;
+    if (thing == "" || qty == "") {
+      return false;
+    }
+    await fetch("/api/addData", {
+      method: "POST",
+      body: JSON.stringify({thing: thing, qty: qty})
+    });
+    
+    setNewItem("");
+    setNewQty("");
+    return true;
+  }
 
   if (!loaded) {
     updateList()
@@ -37,9 +51,10 @@ export default function Home() {
   }
 
   const Btn = ({text, onClick}) => (
-    <button onClick={() => {
-      onClick();
-      updateList()
+    <button onClick={async() => {
+      if(await onClick()) {
+        await updateList();
+      }
     }}>{text}</button>
   )
 
@@ -52,7 +67,7 @@ export default function Home() {
       <div>
         <input placeholder="new item" onChange={changeNewItem} value={newItem}></input>
         <input placeholder="quantity" type="number" onChange={changeNewQty} value={newQty}></input>
-        <Btn text="Add" onClick={what}></Btn>
+        <Btn text="Add" onClick={addItem}></Btn>
       </div>
       <p>{x}</p>
       <hr></hr>
