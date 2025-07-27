@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import WishInput from './components/WishInput'
 
 let loaded = false;
 
@@ -65,18 +66,19 @@ export default function Home() {
     </button>
   );
 
-  return (
-    <main className="min-h-screen bg-gray-100 py-10 px-4">
-      <div className="mx-auto max-w-3xl bg-white rounded-xl shadow-lg p-6 space-y-6 border border-gray-200">
-
-      <h1>Hello</h1>
-      <a href="/quiz">quiz</a>
-      
-      {/* Wish input form below */}
-      <div className="mt-10">
-        <WishInput />
-      </div>
-      </div>
-    </main>
-  );
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-16 px-4">
+        <div className="mx-auto max-w-3xl bg-white rounded-2xl shadow-xl p-10 border border-gray-200 space-y-6 text-center">
+          <h1 className="text-3xl font-bold text-gray-800">🧠 Psychology Quiz</h1>
+          <p className="text-gray-600 text-lg">Ready to learn more about your mind? Tap below to begin your quiz.</p>
+          
+          <a
+            href="/quiz"
+            className="inline-block px-6 py-3 text-white bg-indigo-600 hover:bg-indigo-700 font-semibold rounded-lg shadow-md transition duration-200"
+          >
+            Start Quiz
+          </a>
+        </div>
+      </main>
+    );
 }

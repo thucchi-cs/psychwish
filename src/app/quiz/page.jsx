@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import { allQuestions } from "../api/questions";
+import WishInput from "../components/WishInput";
 
 
 const personalityDescriptions = {
@@ -113,6 +114,7 @@ export default function QuizPage() {
             )}
 
             {stage === "result" && result && (
+                <>
                 <div className="text-center">
                     <h2 className="text-xl font-semibold mb-2">Your Personality Type:</h2>
                     <p className="text-2xl font-bold">{result}</p>
@@ -124,6 +126,12 @@ export default function QuizPage() {
                         Retake Quiz
                     </button>
                 </div>
+
+                    {/* Wish input form below */}
+                    <div className="mt-10">
+                    <WishInput />
+                    </div>
+                </>
             )}
         </div>
     );
