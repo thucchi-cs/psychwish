@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 
-//maps answer choices to personality type 
-// R = Realistic (Doer / Builder)
-
-// I = Investigative (Thinker)
-
-// A = Artistic (Dreamer / Seeker)
-
-// S = Social (Helper)
-
-// E = Enterprising (Builder / Doer)
-
-// C = Conventional (Planner)
-
-const indexToTypeMap: string[][] = [
+// Maps answer choices to personality type
+const indexToTypeMap = [
     ["R", "I", "A", "S", "E", "C"],
     ["I", "S", "R", "E", "C", "A"],
     ["S", "E", "C", "I", "R", "A"],
@@ -22,7 +10,8 @@ const indexToTypeMap: string[][] = [
     ["R", "I", "E", "C", "A", "S"],
     ["E", "C", "I", "R", "S", "A"],
 ];
-// prints questions 
+
+// Question bank
 const questions = [
     {
         text: "Which weekend activity sounds most appealing to you?",
@@ -109,7 +98,7 @@ const reflectionQuestions = [
     "Do you have one goal in mind or multiple goals?",
 ];
 
-const personalityDescriptions: Record<string, string> = {
+const personalityDescriptions = {
     R: "Realistic - You are practical and a hands-on builder.",
     I: "Investigative - You are analytical and a deep thinker.",
     A: "Artistic - You are creative and an imaginative dreamer.",
@@ -119,16 +108,15 @@ const personalityDescriptions: Record<string, string> = {
 };
 
 export default function QuizPage() {
-    const [ask, setAsk] = useState(0); // current question index
-    const [answers, setAnswers] = useState<string[]>([]); // stores selected answer
-    const [result, setResult] = useState<string | null>(null); //stores personality result after calculation
-    const [stage, setStage] = useState<"quiz" | "reflection" | "result">("quiz"); // checks which part of quiz user is on
-    const [reflectionAnswers, setReflectionAnswers] = useState<string[]>(
+    const [ask, setAsk] = useState(0);
+    const [answers, setAnswers] = useState([]);
+    const [result, setResult] = useState(null);
+    const [stage, setStage] = useState("quiz");
+    const [reflectionAnswers, setReflectionAnswers] = useState(
         Array(reflectionQuestions.length).fill("")
-    ); //stores typed responses
+    );
 
-    //when user selects multiple choice answer, maps index to personality, stores in answer array then goes to next question/ reflection
-    function handleAnswer(optionIndex: number) {
+    function handleAnswer(optionIndex) {
         const type = indexToTypeMap[ask][optionIndex];
         const newAnswers = [...answers, type];
         setAnswers(newAnswers);
@@ -140,17 +128,19 @@ export default function QuizPage() {
         }
     }
 
-    function handleReflectionSubmit(e: React.FormEvent) {
-        e.preventDefault();// prevents page reloading
-        const typeCount: Record<string, number> = {};
+    function handleReflectionSubmit(e) {
+        e.preventDefault();
+
+        const typeCount = {};
         answers.forEach((t) => {
             typeCount[t] = (typeCount[t] || 0) + 1;
-        });// counts frequency of each personality type
-        const sorted = Object.entries(typeCount).sort((a, b) => b[1] - a[1]);// sorts types to fnd most common
+        });
+
+        const sorted = Object.entries(typeCount).sort((a, b) => b[1] - a[1]);
         setResult(sorted.length > 0 ? sorted[0][0] : "No result");
         setStage("result");
     }
-    // resets quiz when user clicks button
+
     function resetQuiz() {
         setStage("quiz");
         setAsk(0);
@@ -160,9 +150,6 @@ export default function QuizPage() {
     }
 
     return (
-        //show current question and answers
-        //show text input area 
-        //show final result with description
         <div className="p-4 max-w-md mx-auto">
             {stage === "quiz" && (
                 <>
