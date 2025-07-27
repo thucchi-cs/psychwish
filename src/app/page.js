@@ -4,93 +4,79 @@ import { useState } from "react";
 let loaded = false;
 
 export default function Home() {
-  // get data from database
   const query = async () => {
     const response = await fetch("/api/getData");
     const result = await response.json();
     return Object.values(result.data);
-  }
+  };
 
-  // add item to database
-  const addItem = async() => {
-    const thing = newItem;
-    const qty = newQty;
-    if (thing == "" || qty == "") {
+  const addItem = async () => {
+    if (newItem.trim() === "" || newQty.trim() === "") {
       return false;
     }
     await fetch("/api/addData", {
       method: "POST",
-      body: JSON.stringify({thing: thing, qty: qty})
+      body: JSON.stringify({ thing: newItem, qty: newQty })
     });
-    
+
     setNewItem("");
     setNewQty("");
     return true;
-  }
-  
-  // delete item from database
-  const deleteItem = async(e) => {
-    const item = e.target.parentElement;
-    const key = Object.values(item)[0].key;
+  };
+
+  const deleteItem = async (e) => {
+    const item = e.target.closest('[data-key]');
+    const key = item?.getAttribute('data-key');
+    if (!key) return false;
+
     await fetch("/api/deleteData", {
       method: "POST",
-      body: JSON.stringify({thing: key})
+      body: JSON.stringify({ thing: key })
     });
 
     return true;
-  }
+  };
 
-  // list of items
   const [items, setItems] = useState([]);
-
-  // update current list by querying database
-  const updateList = async() => {
+  const updateList = async () => {
     setItems(await query());
-  }
+  };
 
-  // initialize list if not already
   if (!loaded) {
-    updateList()
+    updateList();
     loaded = true;
   }
-  
-  // values of new items being added
+
   const [newItem, setNewItem] = useState("");
   const [newQty, setNewQty] = useState("");
   const changeNewItem = (e) => setNewItem(e.target.value);
   const changeNewQty = (e) => setNewQty(e.target.value);
 
-  // buttons that will update the list after an action
-  const Btn = ({text, onClick}) => (
-    <button onClick={async(e) => {
-      if(await onClick(e)) {
-        await updateList();
-      }
-    }}>{text}</button>
-  )
+  const Btn = ({ text, onClick, className }) => (
+    <button
+      onClick={async (e) => {
+        if (await onClick(e)) {
+          await updateList();
+        }
+      }}
+      className={`px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all ${className}`}
+    >
+      {text}
+    </button>
+  );
 
   return (
-    <>
-    <div>
+    <main className="min-h-screen bg-gray-100 py-10 px-4">
+      <div className="mx-auto max-w-3xl bg-white rounded-xl shadow-lg p-6 space-y-6 border border-gray-200">
 
       <h1>Hello</h1>
       <a href="/quiz">quiz</a>
-
-      {items.map(i => (
-        <div key={i.thing}>
-          <Btn onClick={deleteItem} text="x" className="inline"></Btn>
-          <li className="inline">{i.thing} - {i.qty}</li>
-        </div>
-      ))}
-      <hr></hr>
-
-      <div>
-        <input placeholder="new item" onChange={changeNewItem} value={newItem}></input>
-        <input placeholder="quantity" type="number" onChange={changeNewQty} value={newQty}></input>
-        <Btn text="Add" onClick={addItem}></Btn>
+      
+      {/* Wish input form below */}
+      <div className="mt-10">
+        <WishInput />
       </div>
-
-    </div>
-    </>
+      </div>
+    </main>
   );
 }
